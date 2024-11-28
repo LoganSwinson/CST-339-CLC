@@ -21,7 +21,7 @@
                     </thead>
                     <tbody>
                         <tr th:if="${#lists.isEmpty(productList)}">
-                            <td style="text-align: center" colspan="4"> No Products Available </td>
+                            <td style="text-align:center" colspan="6"> No Products Available </td>
                         </tr>
                         <tr th:each="updatedProduct : ${productList}">
                         <form th:action="@{/admin/updateProduct}" th:object="${updatedProduct}" method="post" style="background-color:transparent; box-shadow: none;">
@@ -71,7 +71,7 @@
                                 <td><h5 style="color:red" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></h5></td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td colspan="2" style="padding-top: 10px;">
                                     <button type="submit">Create Product</button>
                                 </td>
                             </tr>
