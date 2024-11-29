@@ -6,9 +6,11 @@ import my.gcu.data.entity.UserEntity;
 
 public class UserModel
 {   
+    @NotNull
     private Integer id;
-    @NotNull(message="First Name is a required field")
+    @NotNull
     private String role;
+    @NotNull(message="First Name is a required field")
     @Size(min=1, max=32, message="First Name must be between 1-32 characters long")
     private String firstName;
     @NotNull(message="Last Name is a required field")
