@@ -6,7 +6,6 @@ import my.gcu.data.entity.UserEntity;
 
 public class UserModel
 {   
-    @NotNull
     private Integer id;
     @NotNull
     private String role;
