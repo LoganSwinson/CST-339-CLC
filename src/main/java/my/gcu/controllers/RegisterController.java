@@ -29,13 +29,16 @@ public class RegisterController
     @PostMapping("/register")   
     public String doRegister(@Valid @ModelAttribute("userModel") UserModel userModel, BindingResult bindingResult, Model model)
     {
-        // If the input data was invalid, refresh the page
+        // If the input data was invalid, refresh the page and refresh the page
         if (bindingResult.hasErrors())
         {
+            System.out.println("ERROR IN REGISTRATION");
+            System.out.println(bindingResult.getFieldErrors());
             model.addAttribute("title", "Register Form");
             return "register";
         }
 
+        System.out.println("SUCCESS IN REGISTRATION");
         registerServiceBean.addUser(userModel);
     
         // Redirect to login after successful registration

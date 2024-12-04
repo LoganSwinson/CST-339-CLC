@@ -33,9 +33,6 @@ public class RegisterService implements ServiceInterface
     public void addUser(UserModel user)
     {
         user.setPassword(passEncoder.encode(user.getPassword()));
-    if (user.getRole() == null || user.getRole().isEmpty()) {
-        user.setRole("USER"); 
-    }
         userRepo.save(new UserEntity(user));
     }
 }
