@@ -78,3 +78,11 @@ ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 LOCK TABLES `USERS` WRITE;
 INSERT INTO `USERS` VALUES (1, 'ADMIN', ' ',' ','admin','12345', ' ', ' '), (2, 'USER', 'Bruce', 'Wayne', 'I_AM_BATMAN', 'robin', 'batRulez@hotmail.com', 'N/A');
 UNLOCK TABLES;
+
+INSERT INTO `products` (`ID`, `NAME`, `PRICE`, `DESCRIPTION`, `QUANTITY`) VALUES
+(1, 'Glow Lamp', '40', 'A lamp that projects colorful galaxy patterns on your walls and ceiling.', 25),
+(2, 'Water Bottle', '25', 'A 32oz insulated bottle that keeps drinks hot or cold all day.', 50),
+(3, 'Resistance Bands', '20', 'Set of five bands for workouts, stretching, and strength training.', 40),
+(4, 'Charging Dock', '50', 'A 3-in-1 charging station for phones, smartwatches, and earbuds.', 15),
+(5, 'Knit Blanket', '35', ' Soft handmade blanket, perfect for cozying up or decorating your home.', 30),
+(6, 'Desk Organizer', '15', 'A compact organizer with multiple compartments to keep your pens, papers, and', 60);

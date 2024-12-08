@@ -2,6 +2,7 @@ package my.gcu.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,5 +47,10 @@ public class ProductService implements ServiceInterface
     public void deleteProductById(Integer id)
     {
         productRepo.deleteById(id);
+    }
+
+    public ProductModel getProductById(Integer id) {
+        Optional<ProductEntity> productEntity = productRepo.findById(id);
+        return productEntity.map(ProductModel::new).orElse(null);
     }
 }
