@@ -76,7 +76,8 @@ ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 --
 
 LOCK TABLES `USERS` WRITE;
-INSERT INTO `USERS` VALUES (1, 'ADMIN', ' ',' ','admin','12345', ' ', ' '), (2, 'USER', 'Bruce', 'Wayne', 'I_AM_BATMAN', 'robin', 'batRulez@hotmail.com', 'N/A');
+-- admin password: "12345" | I_AM_BATMAN password: "robin"
+INSERT INTO `USERS` VALUES (1, 'ADMIN', ' ',' ','admin','$2a$10$mOOzU4vtjfcO/9QrilAPwOeSrerMRRUcwbakEkl3UzztOVGBTHjMm', ' ', ' '), (2, 'USER', 'Bruce', 'Wayne', 'I_AM_BATMAN', '$2a$10$4SyEBHXz1V96GUQWaMZPPe4J5DuTnrd.JYSuPy1tTOeJhY8jKE2Y6', 'batRulez@hotmail.com', ' ');
 UNLOCK TABLES;
 
 INSERT INTO `products` (`ID`, `NAME`, `PRICE`, `DESCRIPTION`, `QUANTITY`) VALUES
