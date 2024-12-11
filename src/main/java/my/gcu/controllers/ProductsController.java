@@ -27,7 +27,7 @@ public class ProductsController
         return "products";
     }
 
-      @GetMapping("/item/{id}")
+      @GetMapping("/service/{id}")
     public ResponseEntity<ProductModel> getProductById(@PathVariable("id") Integer id) {
         ProductModel product = productServiceBean.getProductById(id);
         if (product != null) {
