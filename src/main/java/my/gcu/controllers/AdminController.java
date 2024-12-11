@@ -73,7 +73,7 @@ public class AdminController
         // Used to display products
         model.addAttribute("productList", productServiceBean.getProductList());
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PostMapping("/admin/createProduct")

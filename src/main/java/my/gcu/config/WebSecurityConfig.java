@@ -27,7 +27,7 @@ public class WebSecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/images/**", "/service/**", "/register/**", "/login/**", "/css/**").permitAll() 
                 .requestMatchers("/userInfo").hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/admin").hasRole("ADMIN") 
+                .requestMatchers("/admin", "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()) 
             
             .formLogin(form -> form
@@ -55,7 +55,13 @@ public class WebSecurityConfig {
                 .invalidateHttpSession(true) 
                 .clearAuthentication(true)
                 .permitAll()
-                .logoutSuccessUrl("/")); 
+                .logoutSuccessUrl("/"))
+
+                 // Add this block to manage session behavior
+                 .sessionManagement(session -> session
+                    .maximumSessions(1) // Allow only one active session per user
+                    .maxSessionsPreventsLogin(false) // Allows new logins to override old sessions
+    );
 
         return http.build();
     }
