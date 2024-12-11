@@ -1,5 +1,8 @@
 package my.gcu.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import my.gcu.data.entity.UserEntity;
 import my.gcu.data.repository.UserRepository;
+import my.gcu.models.UserModel;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -34,4 +38,33 @@ public class UserService implements UserDetailsService {
                 .build();
     }
     
+    public UserModel getUserById(Integer id)
+    {
+        var userModel = userRepository.findById(id).map(UserModel::new).orElse(null);
+        
+        // Don't retrieve the info of admins
+        if (userModel == null || userModel.getRole().equals("ADMIN"))
+            return null;
+
+        return userModel;
+    }
+
+    public List<UserModel> getUserList()
+    {
+        var userList = new ArrayList<UserModel>();
+        var userEntities = userRepository.findAll();
+
+        // Only returns the info of non-admins
+        for (UserEntity userEntity : userEntities)
+        {
+            if (!userEntity.getRole().equals( "ADMIN"))
+                userList.add(new UserModel(userEntity));
+        }
+
+        // If there are only admins, don't return any data
+        if (userList.size() == 0)
+            return null;
+
+        return userList;
+    }
 }

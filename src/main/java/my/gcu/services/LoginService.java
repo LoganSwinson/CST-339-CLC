@@ -15,7 +15,6 @@ import my.gcu.models.LoginModel;
 @Service
 public class LoginService implements ServiceInterface
 {
-
     @Autowired
     private UserRepository userRepo;
 
@@ -80,5 +79,10 @@ public class LoginService implements ServiceInterface
     public boolean getIsAdmin()
     {
         return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin)
+    {
+        this.isAdmin = isAdmin;
     }
 }

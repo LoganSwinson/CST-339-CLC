@@ -25,12 +25,12 @@ public class AdminController
     @GetMapping("/admin")
     public String home(Model model)
     {
-         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         // Check if the user is authenticated and has the ROLE_ADMIN authority
         boolean isAdmin = authentication != null && authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-
+        loginServiceBean.setIsAdmin(isAdmin);
         model.addAttribute("isAdmin", isAdmin); // Pass admin status to the view
         model.addAttribute("title", "Admin Page");
 
