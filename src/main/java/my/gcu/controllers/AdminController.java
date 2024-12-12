@@ -74,7 +74,7 @@ public class AdminController
         // Used to display products
         model.addAttribute("productList", productServiceBean.getProductList());
 
-        return "admin";
+        return "redirect:/admin";
     }
 
     @PostMapping("/admin/createProduct")
@@ -93,6 +93,6 @@ public class AdminController
     public String deleteProduct(@PathVariable("id") Integer id)
     {
         productServiceBean.deleteProductById(id);
-        return "admin";
+        return "redirect:/admin";
     }
 }
