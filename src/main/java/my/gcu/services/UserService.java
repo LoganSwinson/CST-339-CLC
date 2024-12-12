@@ -25,17 +25,18 @@ public class UserService implements UserDetailsService {
     // This method is used by Spring Security to load user details during login.
     // fetches the user from the database based on the provided username.
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
+    {
         // Fetch user from the database
         UserEntity user = userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     
         // Use the role from the database (assuming user.getRole() returns the correct role)
         return User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword()) // Hashed password
-                .roles(user.getRole()) // Fetch the role from the database
-                .build();
+            .username(user.getUsername())
+            .password(user.getPassword()) // Hashed password
+            .roles(user.getRole()) // Fetch the role from the database
+            .build();
     }
     
     public UserModel getUserById(Integer id)
