@@ -30,11 +30,12 @@ public class AdminController
         // Check if the user is authenticated and has the ROLE_ADMIN authority
         boolean isAdmin = authentication != null && authentication.getAuthorities().stream()
                 .anyMatch(authority -> authority.getAuthority().equals("ROLE_ADMIN"));
-        loginServiceBean.setIsAdmin(isAdmin);
+        loginServiceBean.setIsAdmin(isAdmin); // Stores results
         model.addAttribute("isAdmin", isAdmin); // Pass admin status to the view
         model.addAttribute("title", "Admin Page");
 
-        if (isAdmin) {
+        if (isAdmin)
+        {
             // Add product-related attributes only for admins
             model.addAttribute("newProduct", new ProductModel());
             model.addAttribute("updatedProduct", new ProductModel());

@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController
 {
-   /*  @Autowired private LoginService loginServiceBean; */
-
     @GetMapping("/login")
     public String display(Model model)
     {
