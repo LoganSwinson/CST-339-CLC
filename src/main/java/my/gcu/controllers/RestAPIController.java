@@ -15,46 +15,70 @@ import my.gcu.services.LoginService;
 import my.gcu.services.ProductService;
 import my.gcu.services.UserService;
 
+/**
+ * REST API controller that provides endpoints for accessing product and user data.
+ */
 @Controller
-public class RestAPIController
-{
-    @Autowired private LoginService loginServiceBean;
-    @Autowired private ProductService productServiceBean;
-    @Autowired private UserService userServiceBean;
+public class RestAPIController {
 
+    @Autowired 
+    private LoginService loginServiceBean;
+    @Autowired 
+    private ProductService productServiceBean;
+    @Autowired 
+    private UserService userServiceBean;
+
+    /**
+     * Retrieves a product by its ID.
+     *
+     * @param id the ID of the product
+     * @return a {@link ResponseEntity} containing the {@link ProductModel} if found, or {@code NOT_FOUND} if not
+     */
     @GetMapping("/services/product/{id}")
-    public ResponseEntity<ProductModel> getProductById(@PathVariable("id") Integer id)
-    {
+    public ResponseEntity<ProductModel> getProductById(@PathVariable("id") Integer id) {
         if (productServiceBean.getProductById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(productServiceBean.getProductById(id), HttpStatus.OK);  
+        return new ResponseEntity<>(productServiceBean.getProductById(id), HttpStatus.OK);
     }
 
+    /**
+     * Retrieves all products.
+     *
+     * @return a {@link ResponseEntity} containing a list of {@link ProductModel} objects if found, or {@code NOT_FOUND} if no products exist
+     */
     @GetMapping("/services/product/all")
-    public ResponseEntity<List<ProductModel>> getAllProducts()
-    {
+    public ResponseEntity<List<ProductModel>> getAllProducts() {
         if (productServiceBean.getProductList() == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        
+
         return new ResponseEntity<>(productServiceBean.getProductList(), HttpStatus.OK);
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param id the ID of the user
+     * @return a {@link ResponseEntity} containing the {@link UserModel} if found and the request is authorized, or {@code NOT_FOUND} otherwise
+     */
     @GetMapping("/services/user/{id}")
-    public ResponseEntity<UserModel> getUserById(@PathVariable("id") Integer id)
-    {
-        // If you are not logged in as an admin, or the id retrieved is for an admin or if there was no user for the id return null
-        if (loginServiceBean.getIsAdmin() == false || userServiceBean.getUserById(id) == null)
+    public ResponseEntity<UserModel> getUserById(@PathVariable("id") Integer id) {
+        // Ensure the requester is an admin and the user exists
+        if (!loginServiceBean.getIsAdmin() || userServiceBean.getUserById(id) == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        
+
         return new ResponseEntity<>(userServiceBean.getUserById(id), HttpStatus.OK);
     }
 
+    /**
+     * Retrieves all users.
+     *
+     * @return a {@link ResponseEntity} containing a list of {@link UserModel} objects if the request is authorized and users exist, or {@code NOT_FOUND} otherwise
+     */
     @GetMapping("/services/user/all")
-    public ResponseEntity<List<UserModel>> getAllUsers()
-    {
-        // If you are not logged in as an admin or if there are no non-admin users to return, the list of users is not found
-        if (loginServiceBean.getIsAdmin() == false || userServiceBean.getUserList() == null)
+    public ResponseEntity<List<UserModel>> getAllUsers() {
+        // Ensure the requester is an admin and there are users to return
+        if (!loginServiceBean.getIsAdmin() || userServiceBean.getUserList() == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return new ResponseEntity<>(userServiceBean.getUserList(), HttpStatus.OK);
